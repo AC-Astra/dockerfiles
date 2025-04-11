@@ -1,0 +1,39 @@
+name: Programming Languages
+
+on:
+  workflow_dispatch:
+    clone_lang:
+      description: "Clone languages?"
+      type: boolean
+      required: true
+      default: false
+  schedule:
+    # 每周一的0:13执行 (北京时间+8)
+    - cron: "13 0 * * 1"
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Podman Login
+        uses: redhat-actions/podman-login@v1
+        with:
+          registry: ghcr.io
+          username: ac-astra
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - if: inputs.clone_lang || github.event.schedule
+        run: |
+          python3 ./script/mirror.py gcc
+          python3 ./script/mirror.py python
+          python3 ./script/mirror.py openjdk
+          python3 ./script/mirror.py golang
+          python3 ./script/mirror.py rust
