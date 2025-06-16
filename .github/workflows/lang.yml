@@ -31,6 +31,7 @@ jobs:
           username: ac-astra
           password: ${{ secrets.GITHUB_TOKEN }}
       - if: inputs.clone_lang || github.event.schedule
+        name: Podman run
         run: |
           python3 ./script/mirror.py gcc
           python3 ./script/mirror.py python

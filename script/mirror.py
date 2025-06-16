@@ -16,7 +16,7 @@ def clone_image(image_name):
     '''
 
     subprocess.run(podman_command, shell=True, check=True)
-    print(f"Okay!")
+    print(f"=======>>>>> Okay! <<<<<=======")
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
