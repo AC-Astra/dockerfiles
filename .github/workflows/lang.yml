@@ -10,12 +10,12 @@ on:
   schedule:
     # 每周一的0:13执行 (北京时间+8)
     - cron: "13 0 * * 1"
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
+  # push:
+  #   branches:
+  #     - main
+  # pull_request:
+  #   branches:
+  #     - main
 
 jobs:
   build:
